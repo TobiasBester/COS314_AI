@@ -15,6 +15,20 @@ public class SearchMap {
         this.dimension = numNodes;
     }
 
+    public SearchMap clone(){
+        SearchMap result = new SearchMap(this.dimension);
+        result.distArray = new float[result.dimension][result.dimension];
+
+        for (int i = 0; i < this.dimension; i++){
+            for (int j = 0; j < this.dimension; j++){
+                
+                result.distArray[i][j] = this.distArray[i][j];
+            }
+        }
+
+        return result;
+    }
+
     public String getName(){
         return this.name;
     }
@@ -33,6 +47,10 @@ public class SearchMap {
 
     public void addNode(SearchNode node){
         allNodes.add(node);
+    }
+
+    public SearchNode getNodeAt(int index){
+        return allNodes.get(index);
     }
 
     public void fillDistArray(){

@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Random;
 
 ////Tobias Bester - u14041368
 
@@ -17,17 +18,25 @@ public class searches {
         SearchMap map1 = readFile(piChoice);
 
         System.out.println("Map " + map1.getName() + " has " + map1.getDim() + " cities.");
-        System.out.println("City number " + map1.allNodes.get(16).getIndex() + " has coordinates: " + map1.allNodes.get(16).getX() + " " + map1.allNodes.get(16).getY());
-        System.out.println(map1.distArray[0][1]);
+        System.out.println("City number " + map1.allNodes.get(3).getIndex() + " has coordinates: " + map1.allNodes.get(3).getX() + " " + map1.allNodes.get(3).getY());
+        System.out.println(map1.distArray[0][3]);
 
+        /*
         searchMessage();
         String searchChoice = getSearchInput();
         System.out.println("You chose " + searchChoice);
+        */
+
+        Random randomNum = new Random();
+        int randomNode = randomNum.nextInt(map1.getDim());
+        System.out.println(SearchSolution.bfs(map1, randomNode));
+
+        //System.out.println(SearchSolution.WFIAlgo(map1));
     }
 
     public static void startMessage(){
         System.out.println("Pick a Problem Instance");
-        System.out.println("Default is dj38.tsp");
+        System.out.println("Default is ex05.tsp");
         System.out.println("=======================");
         System.out.println("Enter 1 for dj38.tsp");
         System.out.println("Enter 2 for eil51.tsp");
@@ -56,15 +65,16 @@ public class searches {
             case 1 : return "dj38.tsp";
             case 2 : return "eil51.tsp";
             case 3 : return "wi29.tsp";
-            default : return "dj38.tsp";
+            default : return "ex05.tsp";
         }
     }
 
     public static String getSearchInput(){
-        Scanner in = new Scanner(System.in);
-        String s = in.nextLine();
+        Scanner in2 = new Scanner(System.in);
+        String s = in2.nextLine();
         int i = 1;
         i = Integer.parseInt(s);
+        in2.close();
 
         switch (i) {
             case 1 : return "DFSID";
@@ -72,6 +82,8 @@ public class searches {
             case 3 : return "AStar";
             default : return "DFSID";
         }
+
+        
     }
 
     public static SearchMap readFile(String inFile) {
