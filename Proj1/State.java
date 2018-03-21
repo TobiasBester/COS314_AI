@@ -2,9 +2,10 @@ import java.util.ArrayList;
 
 public class State {
 
-    private float distance;
+    //private float distance;
     public ArrayList<SearchNode> visitedNodes = new ArrayList<SearchNode>();
     protected int numVisitedNodes;
+    protected int heuristic = 9999999;
 
     public State(){
         numVisitedNodes = 0;
@@ -52,6 +53,27 @@ public class State {
         result += map.distArray[0][getNumVisitedNodes()-1];
 
         return result;
+    }
+
+    protected float calcGFunction(SearchMap map){
+        float result = 0;
+
+        for (int i = 0; i < getNumVisitedNodes()-1; i++){
+            result += map.distArray[i][i+1];
+        }
+        
+        return result;
+    }
+
+    protected float calcHeuristic() ){
+        //Nearest Neighbour
+
+    }
+
+    public void calcEvalFunction( int gn, int hn ){
+        //f(n) = g(n) + h(n)
+        //g(n) is the total distance from state n to the start state
+        //h(n) is the heuristic, which will be the nearest neighbour
     }
 
 }

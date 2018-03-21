@@ -21,15 +21,42 @@ public class searches {
         System.out.println("City number " + map1.allNodes.get(3).getIndex() + " has coordinates: " + map1.allNodes.get(3).getX() + " " + map1.allNodes.get(3).getY());
         System.out.println(map1.distArray[0][3]);
 
-        /*
         searchMessage();
         String searchChoice = getSearchInput();
-        System.out.println("You chose " + searchChoice);
-        */
+        
 
         Random randomNum = new Random();
         int randomNode = randomNum.nextInt(map1.getDim());
-        System.out.println(SearchSolution.bfs(map1, randomNode));
+
+        long startTime = System.nanoTime();
+        long stopTime;
+
+        switch (searchChoice) {
+            case "DFSID" :
+                System.out.println("You chose " + searchChoice);
+                System.out.println(SearchSolution.dfsid(map1, randomNode));
+                stopTime = System.nanoTime();
+                System.out.println("Execution completed in " + (stopTime - startTime) + " nanoseconds");
+                break;
+            case "BFS" :
+                System.out.println("You chose " + searchChoice);
+                System.out.println(SearchSolution.bfs(map1, randomNode));
+                stopTime = System.nanoTime();
+                System.out.println("Execution completed in " + (stopTime - startTime) + " nanoseconds");
+                break;
+            case "AStar" :
+                System.out.println("You chose " + searchChoice); 
+                System.out.println(SearchSolution.bfs(map1, randomNode)) ;
+                stopTime = System.nanoTime();
+                System.out.println("Execution completed in " + (stopTime - startTime) + " nanoseconds");
+                break;
+            default : 
+                System.out.println("The default search technique is the depth first search");
+                System.out.println(SearchSolution.dfs(map1, randomNode));
+                stopTime = System.nanoTime();
+                System.out.println("Execution completed in " + (stopTime - startTime) + " nanoseconds");
+                break;
+        }
 
         //System.out.println(SearchSolution.WFIAlgo(map1));
     }
@@ -47,7 +74,7 @@ public class searches {
     public static void searchMessage(){
         System.out.println("=======================");
         System.out.println("Pick a Search to apply");
-        System.out.println("Default is Depth first search with iterative deepening");
+        System.out.println("Default is Depth first search");
         System.out.println("=======================");
         System.out.println("Enter 1 for Depth first search with iterative deepening");
         System.out.println("Enter 2 for Breadth first search");
@@ -80,7 +107,7 @@ public class searches {
             case 1 : return "DFSID";
             case 2 : return "BFS";
             case 3 : return "AStar";
-            default : return "DFSID";
+            default : return "DFS";
         }
 
         
