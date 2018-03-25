@@ -46,7 +46,7 @@ public class searches {
                 break;
             case "AStar" :
                 System.out.println("You chose " + searchChoice); 
-                System.out.println(SearchSolution.bfs(map1, randomNode)) ;
+                System.out.println(SearchSolution.astar(map1, randomNode)) ;
                 stopTime = System.nanoTime();
                 System.out.println("Execution completed in " + (stopTime - startTime) + " nanoseconds");
                 break;
@@ -62,6 +62,7 @@ public class searches {
     }
 
     public static void startMessage(){
+        System.out.println("===============WELCOME==============");
         System.out.println("Pick a Problem Instance");
         System.out.println("Default is ex05.tsp");
         System.out.println("=======================");
