@@ -18,13 +18,10 @@ public class searches {
         SearchMap map1 = readFile(piChoice);
 
         System.out.println("Map " + map1.getName() + " has " + map1.getDim() + " cities.");
-        System.out.println("City number " + map1.allNodes.get(3).getIndex() + " has coordinates: " + map1.allNodes.get(3).getX() + " " + map1.allNodes.get(3).getY());
-        System.out.println(map1.distArray[0][3]);
 
         searchMessage();
         String searchChoice = getSearchInput();
         
-
         Random randomNum = new Random();
         int randomNode = randomNum.nextInt(map1.getDim());
 

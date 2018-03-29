@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
 public class SearchSolution {
 
@@ -7,35 +9,10 @@ public class SearchSolution {
 
     }
 
-    /*
-    public static String WFIAlgo (SearchMap map){
-        SearchMap weight = map.clone();
-        int v = weight.getDim();
-        System.out.println("WFI");
-        StringBuilder matrixPrint = new StringBuilder("");
-
-        for (int i = 0; i < v; i++){
-            for (int j =0; j < v; j++) {
-                for (int k = 0; k < v; k++){
-                    if (weight.distArray[j][k] > weight.distArray[j][i] + weight.distArray[i][k]){
-                        weight.distArray[j][k] = weight.distArray[j][i] + weight.distArray[i][k];
-                    }
-                }
-            }
-        }
-
-        for (int i = 0; i < v; i++){
-            for (int j = 0; j < v; j++){
-                matrixPrint.append("[" + weight.distArray[i][j] + "]");
-            }
-            matrixPrint.append("\n");
-        }
-
-        return matrixPrint.toString();
-
-    } */
-
     public static String bfs(SearchMap map, int startNodeIndex){
+        String pathTraveled = "";
+        int totalDist = 0;
+        
         boolean success = false;
         int totalNumCities = map.getDim();
 
@@ -53,13 +30,16 @@ public class SearchSolution {
         while ( (open.isEmpty() == false) && (success == false) ){
             //remove leftmost state from open, call it X;
             State x = open.remove(0);
-            System.out.println(x.printPath());
+            pathTraveled = x.printPath();
+            System.out.println(pathTraveled);
 
             //if X is the goal, then Success
             if (x.getNumVisitedNodes() == map.getDim()) {
                 success = true;
-                System.out.println("Found a solution at while iteration " + iterationOfWhile++);
-                System.out.println("Distance Traveled: " + x.getTotalDistanceTravelled(map));
+                System.out.println("Found a solution at state expansion " + iterationOfWhile++);
+                totalDist =x.getTotalDistanceTravelled(map);
+                System.out.println("Distance Traveled: " + totalDist);
+                writeToOutput(pathTraveled, totalDist);
             } else {
 
                 System.out.println("Did not find a solution at while iteration " + iterationOfWhile++);
@@ -128,6 +108,8 @@ public class SearchSolution {
 
     public static String dfid(SearchMap map, int startNodeIndex, int searchDepth){
 
+        String pathTraveled = "";
+        int totalDist = 0;
         //This "depth first search" algorithm is actually a breadth first search tailored for iterative deepening
         //due to it stopping after expanding a certain amount of states. Ultimately, if the "dfsid" function is run,
         //the same solution will be found at the same time as an actual DFS with iterative deeping function.
@@ -161,13 +143,16 @@ public class SearchSolution {
         while ( (open.isEmpty() == false) && (success == false) && (iterationOfWhile <= stopAtIteration) ){
             //remove leftmost state from open, call it X;
             State x = open.remove(0);
-            System.out.println(x.printPath());
+            pathTraveled = x.printPath();
+            System.out.println(pathTraveled);
 
             //if X is the goal, then Success
             if (x.getNumVisitedNodes() == map.getDim()) {
                 success = true;
                 System.out.println("Found a solution at state expansion " + iterationOfWhile++);
-                System.out.println("Distance Traveled: " + x.getTotalDistanceTravelled(map));
+                totalDist =x.getTotalDistanceTravelled(map);
+                System.out.println("Distance Traveled: " + totalDist);
+                writeToOutput(pathTraveled, totalDist);
             } else {
 
                 System.out.println("Did not find a solution at state expansion " + iterationOfWhile++);
@@ -214,15 +199,18 @@ public class SearchSolution {
             }   //end else
 
         }   //endwhile
-         
         if (success){
             return "Found it!";
         } else {
             return "Did not find it";
         }
+        
     }
 
     public static String dfs(SearchMap map, int startNodeIndex){
+        String pathTraveled = "";
+        int totalDist = 0;
+        
         boolean success = false;
         int totalNumCities = map.getDim();
 
@@ -241,13 +229,16 @@ public class SearchSolution {
 
             //remove leftmost state from open, call it X;
             State x = open.remove(0);
-            System.out.println("Path explored: " + x.printPath());
+            pathTraveled = x.printPath();
+            System.out.println(pathTraveled);
 
             //if X is the goal, then Success
             if (x.getNumVisitedNodes() == map.getDim()) {
                 success = true;
                 System.out.println("Found a solution at while iteration " + iterationOfWhile++);
-                System.out.println("Distance Traveled: " + x.getTotalDistanceTravelled(map));
+                totalDist =x.getTotalDistanceTravelled(map);
+                System.out.println("Distance Traveled: " + totalDist);
+                writeToOutput(pathTraveled, totalDist);
             } else {
 
                 System.out.println("Did not find a solution at while iteration " + iterationOfWhile++);
@@ -307,6 +298,9 @@ public class SearchSolution {
     }
 
     public static String astar(SearchMap map, int startNodeIndex){
+        String pathTraveled = "";
+        int totalDist = 0;
+        
         boolean success = false;
         int totalNumCities = map.getDim();
 
@@ -325,13 +319,16 @@ public class SearchSolution {
 
             //remove leftmost state from open, call it X;
             State x = open.remove(0);
-            System.out.println("Path explored: " + x.printPath());
+            pathTraveled = x.printPath();
+            System.out.println(pathTraveled);
 
             //if X is the goal, then Success
             if (x.getNumVisitedNodes() == map.getDim()) {
                 success = true;
                 System.out.println("Found a solution at while iteration " + iterationOfWhile++);
-                System.out.println("Distance Traveled: " + x.getTotalDistanceTravelled(map));
+                totalDist =x.getTotalDistanceTravelled(map);
+                System.out.println("Distance Traveled: " + totalDist);
+                writeToOutput(pathTraveled, totalDist);
             } else {
 
                 System.out.println("Did not find a solution at while iteration " + iterationOfWhile++);
@@ -417,4 +414,18 @@ public class SearchSolution {
         }
     }
 
+    private static void writeToOutput(String path, int dist){
+        try{
+            FileWriter f = new FileWriter( "output.txt", false);
+            BufferedWriter output = new BufferedWriter(f);
+            output.write("Path traveled: " + path);
+            output.newLine();
+            output.write("Total distance traveled: " + dist);
+            output.newLine();
+            output.close();
+        } catch(Exception e){
+            e.getMessage();
+        }
+
+    }
 }

@@ -144,7 +144,9 @@ public class State implements Comparable<State> {
                     }
                 } //end for
                 Edge edge1 = new Edge(map.getNodeAt(minI), map.getNodeAt(minJ));
-                edge1.setDistance(minimum);
+                if (minimum != 999999){
+                    edge1.setDistance(minimum);
+                }
                 System.out.println("Edge with distance "+ minimum);
                 if (minEdges.isEmpty()){
                     minEdges.add(edge1);
