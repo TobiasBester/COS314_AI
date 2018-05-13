@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class main {
+public class experiment1 {
 
     static int NUM_PATTERNS = 20000;
 
@@ -12,14 +12,15 @@ public class main {
         System.out.println("Welcome to the Letter Recognition Software Suite");
         System.out.println("================================================");
         
-        // Retrieve Patterns from data file and put into Patterns ArrayList
+        // Retrieve Patterns from data file, scale, and put into Patterns ArrayList
         System.out.println("Retrieving " + NUM_PATTERNS + " Patterns");
         PatternSet patternSet = new PatternSet(NUM_PATTERNS); 
         patternSet = retrievePatterns("letter-recognition.data");
-        System.out.println("Patterns Retrieved");
+        System.out.println("Patterns Retrieved and Scaled");
+        System.out.println(patternSet.patternSet.get(0).at1);
         patternSet.printPatternAt(0);
         patternSet.printPatternAt(1);
-        patternSet.printPatternAt(2);
+        patternSet.printPatternAt(9);
         System.out.println();
 
         // Shuffle Patterns
@@ -29,9 +30,31 @@ public class main {
         patternSet.printPatternAt(0);
         patternSet.printPatternAt(1);
         patternSet.printPatternAt(2);
-        
+        System.out.println();
+
         // Split data into sets
-        
+        System.out.println("Splitting Patterns into Sets");
+        patternSet.splitPatterns();
+        System.out.println("Patterns Split");
+        System.out.println();
+
+        // Initialize weights
+        System.out.println("Initialize Weights");
+        patternSet.initWeights();
+        System.out.println("Weights Initialized");
+        System.out.println();
+
+        // Initialize values
+        System.out.println("Initialize Other Values");
+        patternSet.initValues();
+        System.out.println("Other Values Initialized");
+        System.out.println();
+
+        // Begin Experiment
+        System.out.println("Starting Experiment 1");
+        patternSet.startExperiment(0);
+        System.out.println("======================");
+        System.out.println();
     }
 
     public static PatternSet retrievePatterns(String fileName) {
