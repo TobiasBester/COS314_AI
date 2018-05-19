@@ -17,19 +17,12 @@ public class experiment1 {
         PatternSet patternSet = new PatternSet(NUM_PATTERNS); 
         patternSet = retrievePatterns("letter-recognition.data");
         System.out.println("Patterns Retrieved and Scaled");
-        System.out.println(patternSet.patternSet.get(0).at1);
-        patternSet.printPatternAt(0);
-        patternSet.printPatternAt(1);
-        patternSet.printPatternAt(9);
         System.out.println();
 
         // Shuffle Patterns
         System.out.println("Shuffling Patterns");
         patternSet.shufflePatterns();
         System.out.println("Patterns Shuffled");
-        patternSet.printPatternAt(0);
-        patternSet.printPatternAt(1);
-        patternSet.printPatternAt(2);
         System.out.println();
 
         // Split data into sets
@@ -46,13 +39,13 @@ public class experiment1 {
 
         // Initialize values
         System.out.println("Initialize Other Values");
-        patternSet.initValues();
+        patternSet.initValues(1);
         System.out.println("Other Values Initialized");
         System.out.println();
 
         // Begin Experiment
         System.out.println("Starting Experiment 1");
-        patternSet.startExperiment(0);
+        patternSet.startExperiment(1);
         System.out.println("======================");
         System.out.println();
     }
