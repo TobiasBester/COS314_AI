@@ -5,12 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class experiment1 {
+public class experiment2 {
 
     static int NUM_PATTERNS = 20000;
 
     public static void main(String args[]) {
-        int experiment = 1;
+        int experiment = 2;
         System.out.println("Welcome to the Letter Recognition Software Suite");
         System.out.println("================================================");
         
@@ -39,15 +39,9 @@ public class experiment1 {
         System.out.println("Other Values Initialized");
         System.out.println();
 
-        // Pick Letter
-        System.out.println("Pick a letter to predict");
-        char chosenLetter = getLetter();
-        System.out.println( chosenLetter + " picked");
-        System.out.println();
-
         // Begin Experiment
-        System.out.println("Starting Experiment 1");
-        patternSet.startExperiment(experiment, chosenLetter);
+        System.out.println("Starting Experiment 2");
+        patternSet.startExperiment(experiment, 'A');
         System.out.println("======================");
         System.out.println();
     }
