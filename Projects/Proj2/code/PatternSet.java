@@ -133,18 +133,18 @@ public class PatternSet {
             }
             case 2: {
                 NUM_OUTPUTS = 1;
-                NUM_HIDDEN_UNITS = (NUM_INPUTS + NUM_OUTPUTS) / 2;
-                learningRate = 1.0/NUM_INPUTS;
-                momentum = 0.05;
-                EPOCH_MAX = 200;
-                DESIRED_ACCURACY = 99.0;
+                NUM_HIDDEN_UNITS = 12;
+                learningRate = 0.5;
+                momentum = 0.5;
+                EPOCH_MAX = 500;
+                DESIRED_ACCURACY = 95.0;
                 break;
             }
             case 3: {
                 NUM_OUTPUTS = 26;
-                NUM_HIDDEN_UNITS = (NUM_INPUTS + NUM_OUTPUTS) / 2; 
-                learningRate = 1.0/NUM_INPUTS;
-                momentum = 1.0/NUM_HIDDEN_UNITS;
+                NUM_HIDDEN_UNITS = (NUM_INPUTS + NUM_OUTPUTS) / 2;  //16 
+                learningRate = 0.5;
+                momentum = 0.5;
                 EPOCH_MAX = 1000;
                 break;
             }
@@ -370,7 +370,7 @@ public class PatternSet {
             System.out.println("Generalization Accuracy: " + genError);
             System.out.println();
             
-            if (valError < valErrorAvg - 4*valErrorStdev) {
+            if (valError < valErrorAvg - 3*valErrorStdev) {
                 overfit = true;
                 System.out.println("Overfitting detected: Validation Error Decreased Too Much");
             }
