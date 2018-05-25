@@ -23,8 +23,8 @@ public class PatternSet {
     int EPOCH_MAX = 1000;
     double DESIRED_ACCURACY = 99.0;
 
-    double[][] v = new double[NUM_HIDDEN_UNITS][NUM_INPUTS];           // Weights for hidden units
-    double[][] w = new double[NUM_OUTPUTS][NUM_HIDDEN_UNITS];            // Weights for outputs
+    double[][] v;           // Weights for hidden units
+    double[][] w;            // Weights for outputs
     double bias1;                                        // Bias for inputs
     double bias2;                                        // Bias for inputs2
 
@@ -92,6 +92,8 @@ public class PatternSet {
     }
 
     public void initWeights() {
+        v = new double[NUM_HIDDEN_UNITS][NUM_INPUTS];
+        w = new double[NUM_OUTPUTS][NUM_HIDDEN_UNITS];
         bias1 = 1.0;
         bias2 = 1.0;
         int vFanin = NUM_INPUTS;
@@ -142,9 +144,9 @@ public class PatternSet {
             }
             case 3: {
                 NUM_OUTPUTS = 26;
-                NUM_HIDDEN_UNITS = (NUM_INPUTS + NUM_OUTPUTS) / 2;  //16 
+                NUM_HIDDEN_UNITS = 24;  //21 
                 learningRate = 0.5;
-                momentum = 0.5;
+                momentum = 0.05;
                 EPOCH_MAX = 1000;
                 break;
             }
@@ -278,6 +280,11 @@ public class PatternSet {
                         }
                     } else {
                         // Experiment 3 - Get exact letter
+                        if (getLetterNum(tSet.get(i).letterCat)-1 == j) {
+                            tk = 1.0;
+                        } else {
+                            tk = 0.0;
+                        }
                     }
                     
                     //System.out.println("Actual Letter: " + tSet.get(i).letterCat);
@@ -419,7 +426,21 @@ public class PatternSet {
                 }
             }
         } else {    // exp == 3
-            return 1;
+            // If the jth output node is the jth letter
+            if (outputIt == letterNum-1) {
+                // then the output value should be 1.0
+                if (outputValue >= 0.7) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else {    // else it is not the corresponding output node
+                if (outputValue <= 0.3) {   // So the output value should be less than 0.3
+                    return 1;
+                } else {
+                    return 0;      // Else wrong prediction
+                }
+            }
         }
    }
 
@@ -555,7 +576,7 @@ public class PatternSet {
         }
 
         try {
-            FileWriter f = new FileWriter("Results.txt", true);
+            FileWriter f = new FileWriter("output.txt", true);
             BufferedWriter output = new BufferedWriter(f);
             output.write("Epoch Number " + epochNum + " - Training Accuracy: " + trainError 
                         + " | Validation Error: " + valError + " | Generalization Accuracy: " + genError ); 
@@ -568,7 +589,7 @@ public class PatternSet {
 
     private void clearFile() {
         try {
-            FileWriter f = new FileWriter("Results.txt", false);
+            FileWriter f = new FileWriter("output.txt", false);
             BufferedWriter output = new BufferedWriter(f);
             output.write("");
             output.close();
